@@ -7,14 +7,32 @@
 
     <!--Internal Stylesheet-->
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
-
       body {
         font-size: 18px;
-        background-color: green;
+      }
+
+      .input-form {
+        margin: 10px;
+      }
+
+      .game-table,
+      th,
+      td {
+        border-collapse: collapse;
+      }
+
+      .game-table {
+        width: 100%;
+        border: 4px solid rgba(0, 0, 255, 0.6);
+      }
+
+      th,
+      td {
+        background-color: #98ecec;
+        border: 1px solid #000;
+        width: 33.33%;
+        padding: 10px 0;
+        text-align: center;
       }
     </style>
 
@@ -22,6 +40,55 @@
   </head>
 
   <body>
-    <h1 class="main-heading">Scoreboard Creator</h1>
+    <h1 class="main-heading input-form">Scoreboard Creator</h1>
+
+    <form action="" id="info-form">
+      <div class="">
+        <div class="input-form">
+          <label for="title">Title: </label>
+          <input type="text" id="title" name="title" />
+        </div>
+        <div class="input-form">
+          <label for="players">Number of Players(max players is 5): </label>
+          <input type="text" id="players" name="players" />
+        </div>
+        <input class="input-form" type="button" value="Enter Player Names" />
+      </div>
+    </form>
+
+    <h2 class="player-names input-form">Player Names</h2>
+    <form action="" id="players-form">
+      <div class="">
+        <div class="input-form">
+          <input type="text" />
+        </div>
+
+        <input class="input-form" type="button" value="Show Scoresheet" />
+      </div>
+
+      <h2 class="game-name input-form">Cards Tournament</h2>
+      <table class="game-table">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Score</th>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>Brian</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>John</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Emma</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </form>
   </body>
 </html>
