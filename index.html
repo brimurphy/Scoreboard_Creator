@@ -12,7 +12,24 @@
       }
 
       .input-form {
-        margin: 10px;
+        margin: 0.8rem;
+      }
+
+      input {
+        border-radius: 5px;
+      }
+
+      .btn {
+        color: #fff;
+        padding: 0.5rem;
+        background-color: #018e01;
+        border-radius: 10px;
+      }
+
+      .btn:hover {
+        background-color: #03c603;
+        box-shadow: 1px 1px #000;
+        text-shadow: 1px 1px #000;
       }
 
       .game-table,
@@ -52,43 +69,101 @@
           <label for="players">Number of Players(max players is 5): </label>
           <input type="text" id="players" name="players" />
         </div>
-        <input class="input-form" type="button" value="Enter Player Names" />
+        <div class="input-form">
+          <input
+            type="button"
+            class="btn"
+            id="enter-names"
+            onclick="setGameTitle()"
+            ;
+            value="Enter Player Names"
+          />
+        </div>
       </div>
     </form>
 
-    <h2 class="player-names input-form">Player Names</h2>
+    <h2 class="input-form">Player Names</h2>
     <form action="" id="players-form">
       <div class="">
         <div class="input-form">
-          <input type="text" />
+          <input type="text" id="player-name" />
         </div>
-
-        <input class="input-form" type="button" value="Show Scoresheet" />
+        <dic class="input-form">
+          <input
+            type="button"
+            class="btn"
+            id="show-scoresheet"
+            value="Show Scoresheet"
+          />
+        </dic>
       </div>
 
-      <h2 class="game-name input-form">Cards Tournament</h2>
+      <h2 class="game-name input-form" id="game-title">Cards Tournament</h2>
       <table class="game-table">
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Score</th>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Brian</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>John</td>
-          <td>0</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Emma</td>
-          <td>0</td>
-        </tr>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Brian</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>John</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Emma</td>
+            <td>0</td>
+          </tr>
+        </tbody>
       </table>
     </form>
+
+    <!--Javascript-->
+    <script>
+      // Input elements
+      //const title = document.getElementById("title").value;
+      const numPlayers = document.getElementById("players");
+      const players = document.getElementById("player-name");
+
+      // Buttons elements
+      const btnNames = document.getElementById("enter-names");
+      const btnTable = document.getElementById("show-scoresheet");
+
+      // Generated elements
+      const gameTitle = document.getElementById("game-title");
+
+      //console.log(title);
+      console.log(numPlayers);
+      console.log(players);
+      console.log(btnNames);
+      console.log(btnTable);
+
+      // Update title of the game above the table
+      function setGameTitle() {
+        // Get the entered title
+        const title = document.getElementById("title").value;
+
+        // Split the string on any spaces
+        const capWords = title.split(" ");
+
+        // Loop through the created array changing the
+        // first letter of each word to a capital
+        for (let i = 0; i < capWords.length; i++) {
+          capWords[i] = capWords[i][0].toUpperCase() + capWords[i].substring(1);
+        }
+        console.log(capWords.join(" "));
+        //const newTitle = capWords.join(" ");
+        gameTitle.innerHTML = capWords.join(" ");
+      }
+    </script>
   </body>
 </html>
