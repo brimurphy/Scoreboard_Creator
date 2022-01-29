@@ -85,8 +85,8 @@
     <h2 class="input-form">Player Names</h2>
     <form action="" id="players-form">
       <div class="">
-        <div class="input-form">
-          <input type="text" id="player-name" />
+        <div class="input-form" id="player-name">
+          <input type="text" />
         </div>
         <dic class="input-form">
           <input
@@ -131,19 +131,20 @@
     <script>
       // Input elements
       //const title = document.getElementById("title").value;
-      const numPlayers = document.getElementById("players");
-      const players = document.getElementById("player-name");
+      //const numPlayers = document.getElementById("players");
+      //const players = document.getElementById("player-name").value;
 
       // Buttons elements
       const btnNames = document.getElementById("enter-names");
       const btnTable = document.getElementById("show-scoresheet");
 
+      btnNames.addEventListener("click", addPlayerNames);
       // Generated elements
       const gameTitle = document.getElementById("game-title");
 
       //console.log(title);
-      console.log(numPlayers);
-      console.log(players);
+      //console.log(numPlayers);
+      //console.log(players);
       console.log(btnNames);
       console.log(btnTable);
 
@@ -163,6 +164,14 @@
         console.log(capWords.join(" "));
         //const newTitle = capWords.join(" ");
         gameTitle.innerHTML = capWords.join(" ");
+      }
+
+      function addPlayerNames() {
+        const numPlayers = document.getElementById("players").value;
+        const num = parseInt(numPlayers);
+        for (let i = 0; i < num; i++) {
+          console.log(num);
+        }
       }
     </script>
   </body>
