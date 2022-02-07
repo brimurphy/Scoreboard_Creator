@@ -11,14 +11,23 @@
         font-size: 18px;
       }
 
+      /* Input forms */
       .input-form {
-        margin: 0.8rem;
+        margin: 0.5rem;
       }
 
       input {
         border-radius: 5px;
       }
 
+      /* Error message */
+      .error-text {
+        color: #ff0000;
+        font-size: 0.8rem;
+        margin: 0.5rem 3rem;
+      }
+
+      /* Buttons */
       .btn {
         color: #fff;
         padding: 0.5rem;
@@ -32,6 +41,7 @@
         text-shadow: 1px 1px #000;
       }
 
+      /* Table styles */
       .game-table,
       th,
       td {
@@ -59,45 +69,51 @@
   <body>
     <h1 class="main-heading input-form">Scoreboard Creator</h1>
 
+    <!--Add scoreboard title and amount of players between 1 and 5 -->
     <form action="" id="info-form">
-      <div class="">
-        <div class="input-form">
-          <label for="title">Title: </label>
-          <input type="text" id="title" name="title" />
-        </div>
-        <div class="input-form">
-          <label for="players">Number of Players(max players is 5): </label>
-          <input type="text" id="players" name="players" />
-        </div>
-        <div class="input-form">
-          <input
-            type="button"
-            class="btn"
-            id="enter-names"
-            onclick="setGameTitle()"
-            ;
-            value="Enter Player Names"
-          />
-        </div>
+      <!--Input for scoreboard title-->
+      <div class="input-form">
+        <label for="title">Title: </label>
+        <input type="text" id="title" name="title" />
+        <!--Error text paragraph-->
+        <p id="error-title" class="error-text"></p>
+      </div>
+
+      <!--Input for num of players-->
+      <div class="input-form">
+        <label for="players">Number of Players(max players is 5): </label>
+        <input type="text" id="players" name="players" />
+        <!--Error text paragraph-->
+        <p id="error-players" class="error-text"></p>
+      </div>
+      <!--Button to submit values-->
+      <div class="input-form">
+        <input
+          type="button"
+          class="btn"
+          id="enter-names"
+          value="Enter Player Names"
+        />
       </div>
     </form>
 
+    <!--Enter players names section-->
     <h2 class="input-form">Player Names</h2>
     <form action="" id="players-form">
-      <div class="">
-        <div class="input-form" id="player-name">
-          <input type="text" />
-        </div>
-        <dic class="input-form">
-          <input
-            type="button"
-            class="btn"
-            id="show-scoresheet"
-            value="Show Scoresheet"
-          />
-        </dic>
+      <div class="input-form" id="player-name"></div>
+      <!--Error text paragraph-->
+      <p id="error-name" class="error-text"></p>
+      <!--Button to submit values-->
+      <div class="input-form">
+        <input
+          type="button"
+          class="btn"
+          id="show-scoresheet"
+          value="Show Scoresheet"
+        />
       </div>
 
+      <!--Table-->
       <h2 class="game-name input-form" id="game-title">Cards Tournament</h2>
       <table class="game-table">
         <thead>
@@ -107,72 +123,123 @@
             <th>Score</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Brian</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>John</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Emma</td>
-            <td>0</td>
-          </tr>
-        </tbody>
+        <tbody id="table-body"></tbody>
       </table>
     </form>
 
     <!--Javascript-->
     <script>
-      // Input elements
-      //const title = document.getElementById("title").value;
-      //const numPlayers = document.getElementById("players");
-      //const players = document.getElementById("player-name").value;
+      const players = document.getElementById("player-name");
+      const table = document.getElementById("table-body");
+
+      const gameTitle = document.getElementById("game-title");
+
+      // Error elements
+      const errorTitle = document.getElementById("error-title");
+      const errorPlayers = document.getElementById("error-players");
+      const errorName = document.getElementById("error-name");
 
       // Buttons elements
       const btnNames = document.getElementById("enter-names");
       const btnTable = document.getElementById("show-scoresheet");
 
-      btnNames.addEventListener("click", addPlayerNames);
-      // Generated elements
-      const gameTitle = document.getElementById("game-title");
-
-      //console.log(title);
-      //console.log(numPlayers);
-      //console.log(players);
-      console.log(btnNames);
-      console.log(btnTable);
-
-      // Update title of the game above the table
+      // Update title of the game
       function setGameTitle() {
         // Get the entered title
         const title = document.getElementById("title").value;
 
-        // Split the string on any spaces
-        const capWords = title.split(" ");
+        try {
+          if (title == "") throw `title`;
+          // Clear warning text
+          errorTitle.innerHTML = "";
+          // Call addPlayerNames once title is validated
+          addPlayerNames();
+          // Split the string on any spaces
+          const capWords = title.split(" ");
+          // Loop through the created array changing the
+          // first letter of each word to a capital
+          for (let i = 0; i < capWords.length; i++) {
+            capWords[i] =
+              capWords[i][0].toUpperCase() + capWords[i].substring(1);
+          }
+          // Join Title words back together and print to screen
+          gameTitle.innerHTML = capWords.join(" ");
 
-        // Loop through the created array changing the
-        // first letter of each word to a capital
-        for (let i = 0; i < capWords.length; i++) {
-          capWords[i] = capWords[i][0].toUpperCase() + capWords[i].substring(1);
+          // Display error message if title field is empty
+        } catch (error) {
+          errorTitle.innerHTML = `Please enter a ${error} to start`;
         }
-        console.log(capWords.join(" "));
-        //const newTitle = capWords.join(" ");
-        gameTitle.innerHTML = capWords.join(" ");
       }
 
+      // Add number of players to game
       function addPlayerNames() {
-        const numPlayers = document.getElementById("players").value;
-        const num = parseInt(numPlayers);
-        for (let i = 0; i < num; i++) {
-          console.log(num);
+        const numPlayers = parseInt(document.getElementById("players").value);
+
+        try {
+          // Test for conditions that are in the acceptable range
+          if (numPlayers < 1) throw `low`;
+          if (numPlayers > 5) throw `high`;
+          if (isNaN(numPlayers)) throw `be a number`;
+
+          // Clear warning text
+          errorPlayers.innerHTML = "";
+
+          // Add input field for each player to enter name
+          for (let i = 0; i < numPlayers; i++) {
+            players.insertAdjacentHTML(
+              "beforeend",
+              `<input type="text" class="input-form name" /> <br>`
+            );
+          }
+          // Display error with helpful message
+        } catch (error) {
+          errorPlayers.innerHTML = `Number of players is to ${error}`;
         }
       }
+
+      // Create the Scoreboard with correct amount of players
+      function createTable() {
+        // Make an array of the entered names
+        const namesArray = Array.from(document.querySelectorAll(".name"));
+
+        // Loop through the names in the array checking for empty strings
+        for (let i = 0; i < namesArray.length; i++) {
+          try {
+            if (namesArray[i].value == "") {
+              // If position is empty remove the table with the removeElements function
+              removeElements(table);
+              throw `Name must be entered in all positions`;
+            }
+
+            // Clear error message
+            errorName.innerHTML = "";
+
+            // Create table rows after the tbody element and insert position and name
+            table.insertAdjacentHTML(
+              "beforeend",
+              `<tr>
+                  <td class="playerNumber">${i + 1}</td>
+                  <td class="playerName">${namesArray[i].value}</td>
+                 <td>0</td>
+                 </tr>`
+            );
+            // Display error message
+          } catch (error) {
+            errorName.innerHTML = error;
+          }
+        }
+      }
+
+      // Function to clear the tbody element of any children elements
+      function removeElements(el) {
+        while (el.firstChild) {
+          el.removeChild(el.firstChild);
+        }
+      }
+
+      // Add event listeners on the buttons and call appropriate function when pressed
+      btnNames.addEventListener("click", setGameTitle);
+      btnTable.addEventListener("click", createTable);
     </script>
   </body>
 </html>
